@@ -25,8 +25,10 @@ public class ExchangeRateLoader {
         Calendar cal = Calendar.getInstance();
         cal.clear();
         cal.setTime(date);
+        int month = cal.get(Calendar.MONTH)+1;
+       
         ResultSet resultSet = statement.executeQuery("SELECT * FROM CAMBIO_EUR_A where to_date(to_char(ALTA,'dd/mm/yy'),'dd/mm/yy') = to_date('" 
-                + cal.get(Calendar.DAY_OF_MONTH) +"/" + cal.get(Calendar.MONTH) + "/" + cal.get(Calendar.YEAR) + "','dd/mm/yy') " 
+                + cal.get(Calendar.DAY_OF_MONTH) +"/" + month + "/" + cal.get(Calendar.YEAR) + "','dd/mm/yy') " 
                 + "and DIVISA='" + to.getCode() + "'");
         
         while(resultSet.next()){
@@ -36,7 +38,7 @@ public class ExchangeRateLoader {
         DriverManager.registerDriver(new oracle.jdbc.OracleDriver());
         statement = connection.createStatement();
         resultSet = statement.executeQuery("SELECT * FROM CAMBIO_EUR_A where to_date(to_char(ALTA,'dd/mm/yy'),'dd/mm/yy') = to_date('" 
-                + cal.get(Calendar.DAY_OF_MONTH) +"/" + cal.get(Calendar.MONTH) + "/" + cal.get(Calendar.YEAR) + "','dd/mm/yy') " 
+                + cal.get(Calendar.DAY_OF_MONTH) +"/" + month + "/" + cal.get(Calendar.YEAR) + "','dd/mm/yy') " 
                 + "and DIVISA='" + from.getCode() + "'");
         
         while(resultSet.next()){
